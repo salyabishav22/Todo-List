@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List - Modern Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-title">
+                    <i class="fas fa-list-check"></i>
+                    <h1>My Tasks</h1>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <span class="stat-label">Total Tasks</span>
+                <span class="stat-number" id="totalTasks">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Pending</span>
+                <span class="stat-number pending" id="pendingTasks">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Completed</span>
+                <span class="stat-number completed" id="completedTasks">0</span>
+            </div>
+        </div>
+
+        <!-- Add Task Section -->
+        <div class="add-task-section">
+            <input 
+                type="text" 
+                id="taskInput" 
+                placeholder="What needs to be done?" 
+                class="task-input"
+                autocomplete="off"
+            >
+            <select id="prioritySelect" class="priority-select">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+            </select>
+            <input 
+                type="date" 
+                id="dueDateInput" 
+                class="due-date-input"
+            >
+            <button class="add-btn" id="addBtn">
+                <i class="fas fa-plus"></i> Add Task
+            </button>
+        </div>
+
+        <!-- Filter and Search Section -->
+        <div class="filter-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search tasks..." 
+                    class="search-input"
+                    autocomplete="off"
+                >
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-list"></i> All
+                </button>
+                <button class="filter-btn" data-filter="pending">
+                    <i class="fas fa-hourglass-half"></i> Pending
+                </button>
+                <button class="filter-btn" data-filter="completed">
+                    <i class="fas fa-check-circle"></i> Completed
+                </button>
+            </div>
+        </div>
+
+        <!-- Tasks Display Section -->
+        <main class="tasks-container">
+            <!-- Pending Tasks -->
+            <section class="tasks-section pending-section">
+                <h2 class="section-title">
+                    <i class="fas fa-hourglass-start"></i> Pending Tasks
+                </h2>
+                <div class="tasks-list" id="pendingTasksList">
+                    <!-- Tasks will be rendered here -->
+                </div>
+                <div class="empty-state" id="emptyPending" style="display: none;">
+                    <i class="fas fa-check-double"></i>
+                    <p>No pending tasks! You're all caught up 🎉</p>
+                </div>
+            </section>
+
+            <!-- Completed Tasks -->
+            <section class="tasks-section completed-section">
+                <h2 class="section-title">
+                    <i class="fas fa-check-square"></i> Completed Tasks
+                </h2>
+                <div class="tasks-list" id="completedTasksList">
+                    <!-- Tasks will be rendered here -->
+                </div>
+                <div class="empty-state" id="emptyCompleted" style="display: none;">
+                    <i class="fas fa-inbox"></i>
+                    <p>No completed tasks yet. Start checking off your to-dos!</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Clear All Button -->
+        <div class="action-buttons">
+            <button class="clear-completed-btn" id="clearCompletedBtn">
+                <i class="fas fa-trash-alt"></i> Clear Completed
+            </button>
+            <button class="clear-all-btn" id="clearAllBtn">
+                <i class="fas fa-broom"></i> Clear All
+            </button>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Task</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input 
+                    type="text" 
+                    id="editTaskInput" 
+                    placeholder="Task title" 
+                    class="modal-input"
+                >
+                <select id="editPrioritySelect" class="modal-input">
+                    <option value="low">Low Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="high">High Priority</option>
+                </select>
+                <input 
+                    type="date" 
+                    id="editDueDateInput" 
+                    class="modal-input"
+                >
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelEditBtn">Cancel</button>
+                <button class="btn-save" id="saveEditBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
